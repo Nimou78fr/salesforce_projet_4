@@ -1,0 +1,55 @@
+<template>
+    <div class="slds-card"> <!--conteneur principal de type carte-->
+        <lightning-card title="Opportunity Products"> <!--Composant standard pour afficher une carte-->          
+            <template if:true={hasQuantityIssues}> <!-- Si des problèmes de quantité existent-->
+                <!-- Conteneur de l 'alerte avec icône et messages -->
+                <div class="slds-notify slds-notify_alert slds-theme_alert-texture slds-theme_warning slds-p-around_small" role="alert">
+                    <span class="slds-assistive-text">Attention</span>                   
+                    <lightning-icon
+                        icon-name="utility:warning"
+                        alternative-text="Warning"
+                        size="x-small"
+                        class="slds-m-right_x-small slds-icon-text-warning"
+                    ></lightning-icon>
+                    <span>{label.quantityErrorMessage}</span> <!--propriete dynamique affiche message erreur depuis un fichier labels perso dans le code JS du composant-->
+                    <br />
+                    <span>{label.contactAdminMessage}</span> <!--affichage message complementaire-->
+                </div>
+            </template>
+
+            <template if:true={opportunityLineItems}> <!--Verifie si la variable n'est pas vide ou null (produit de l opportunité)-->
+                <template if:true={hasItems}> <!-- Vérifie que la variable est vraie ( au moins un produit)(Type booleen)-->
+
+                    <!--Tableau dynamique et interactif avec les lignes produits-->
+                    <lightning-datatable
+                        key-field="Id"
+                        data={opportunityLineItems}
+                        columns={columns}
+                        onesave={handlesave}
+                        hide-checkbox-column
+                        class="slds-table_bordered"
+                        row-number-offset="0"
+                        default-sort-direction="asc"
+                        suppress-bottom-bar
+                        onrowaction={handleRowAction}
+                    ></lightning-datatable>
+                </template>
+
+                <template if:false={hasItems}> <!--Si aucun produit n'a été ajouté , le message en dessous s'affiche-->
+                    <div class="slds-p-around_medium slds-text-align_center">
+                        <p class="slds-text-body_regular">
+                            Vous n'avez aucune ligne de produits pour le moment.<br />
+                            1️⃣ Veuillez tout d'abord sélectionner un <strong>Catalogue (PriceBook)</strong><br />
+                            2️⃣ Sélectionnez ensuite les produits à ajouter
+                        </p>
+                    </div>
+                </template>
+            </template>
+            
+            <template if:true={error}> <!--Si une erreur est survenue lors de la récupération des produits, le message d'erreur s'affiche-->
+                <p class="slds-text-color_error">Erreur : {error}</p>
+            </template>
+
+        </lightning-card>
+    </div>
+</template>

@@ -1,0 +1,20 @@
+
+/*Styles pour le composant opportunityProducts */
+.green-quantity {
+    color: green;
+    font-weight: bold;
+}
+
+.red-quantity {
+    color: red;
+    font-weight: bold;
+}
+.green-stock {
+    color: green;
+    font-weight: bold;
+}
+
+.red-stock {
+    color: red;
+    font-weight: bold;
+}
