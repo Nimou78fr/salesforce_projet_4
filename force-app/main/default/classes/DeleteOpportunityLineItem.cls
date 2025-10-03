@@ -6,13 +6,13 @@ public with sharing class DeleteOpportunityLineItem { //Classe Apex pour supprim
             throw new AuraHandledException('ID manquant.'); //Lance une exception si l'ID est null//
         }
 
-        try { //Bloc try-catch pour gérer les erreurs potentielles//
+      //  try { //Bloc try-catch pour gérer les erreurs potentielles//
             OpportunityLineItem oli = [ //Déclaration de la variable oli de type OpportunityLineItem//
                 SELECT Id FROM OpportunityLineItem WHERE Id = :oliId //Requête SOQL pour récupérer l'OpportunityLineItem à supprimer//
             ];
             delete oli; //Suppression de l'OpportunityLineItem//
-        } catch (Exception e) { //Capture de toute exception pouvant survenir lors de la suppression//
-            throw new AuraHandledException('Erreur de suppression : ' + e.getMessage()); //Lance une exception avec le message d'erreur//
-        }
+       // } catch (Exception e) { //Capture de toute exception pouvant survenir lors de la suppression//
+        //    throw new AuraHandledException('Erreur de suppression : ' + e.getMessage()); //Lance une exception avec le message d'erreur//
+      //  }
     }
 }
