@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>64.0</apiVersion>
+    <assignments>
+        <name>Ass_Diff_quantite_stock</name>
+        <label>Ass Diff quantite stock</label>
+        <locationX>385</locationX>
+        <locationY>315</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.Diff_quantite_stock__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>diffquantitestock</elementReference>
+            </value>
+        </assignmentItems>
+    </assignments>
+    <environments>Default</environments>
+    <formulas>
+        <name>diffquantitestock</name>
+        <dataType>Number</dataType>
+        <expression>{!$Record.Product2.QuantityInStock__c}-{!$Record.Quantity}</expression>
+        <scale>0</scale>
+    </formulas>
+    <interviewLabel>Flow Diff quantity stock {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Flow Diff quantity stock</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>FREE_FORM_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <start>
+        <locationX>330</locationX>
+        <locationY>48</locationY>
+        <connector>
+            <targetReference>Ass_Diff_quantite_stock</targetReference>
+        </connector>
+        <object>OpportunityLineItem</object>
+        <recordTriggerType>CreateAndUpdate</recordTriggerType>
+        <triggerType>RecordBeforeSave</triggerType>
+    </start>
+    <status>Active</status>
+</Flow>

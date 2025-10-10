@@ -11,8 +11,5 @@ public with sharing class DeleteOpportunityLineItem { //Classe Apex pour supprim
                 SELECT Id FROM OpportunityLineItem WHERE Id = :oliId //Requête SOQL pour récupérer l'OpportunityLineItem à supprimer//
             ];
             delete oli; //Suppression de l'OpportunityLineItem//
-       // } catch (Exception e) { //Capture de toute exception pouvant survenir lors de la suppression//
-        //    throw new AuraHandledException('Erreur de suppression : ' + e.getMessage()); //Lance une exception avec le message d'erreur//
-      //  }
-    }
+           }
 }
