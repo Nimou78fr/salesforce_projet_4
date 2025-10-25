@@ -35,15 +35,12 @@
                     ></lightning-datatable>
                 </template>
 
-                <template if:false={hasItems}> <!--Si aucun produit n'a été ajouté , le message en dessous s'affiche-->
-                    <div class="slds-p-around_medium slds-text-align_center">
-                        <p class="slds-text-body_regular">
-                            Vous n'avez aucune ligne de produits pour le moment.<br />
-                            1️⃣ Veuillez tout d'abord sélectionner un <strong>Catalogue (PriceBook)</strong><br />
-                            2️⃣ Sélectionnez ensuite les produits à ajouter
-                        </p>
-                    </div>
-                </template>
+                <template if:false={hasItems}>
+    <div class="slds-p-around_medium slds-text-align_center slds-m-top_large"> <!--Conteneur centré avec du padding et une marge en haut-->
+        <p class="slds-text-body_regular">{label.noProductsMessage}</p>
+    </div>
+</template>
+
             </template>
             
             <template if:true={error}> <!--Si une erreur est survenue lors de la récupération des produits, le message d'erreur s'affiche-->

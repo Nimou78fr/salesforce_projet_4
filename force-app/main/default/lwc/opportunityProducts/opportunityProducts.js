@@ -20,7 +20,7 @@ import QuantityErrorMessage from '@salesforce/label/c.Quantity_Error_Message';
 import ContactAdminMessage from '@salesforce/label/c.Contact_Admin_Message';
 import OpportunityProducts from '@salesforce/label/c.Opportunity_Products';
 import OpportunityUpdateError from '@salesforce/label/c.Opportunity_Update_Error';
-import NoProductsMessage from '@salesforce/label/c.No_Product_Message';
+import NoProductMessage from '@salesforce/label/c.No_Product_Message';
 
 export default class opportunityProducts extends LightningElement {
     @api recordId; // Id de l'opportunité actuelle//
@@ -45,7 +45,7 @@ export default class opportunityProducts extends LightningElement {
         contactAdminMessage: ContactAdminMessage,
         opportunityProducts: OpportunityProducts,
         opportunityUpdateError: OpportunityUpdateError,
-        noProductsMessage: NoProductsMessage,
+        noProductsMessage: NoProductMessage,
     };
 // vue des colonnes du tableau selon le profil Admin et inclu le bouton voir le produit//
     columns = [];
@@ -54,7 +54,7 @@ export default class opportunityProducts extends LightningElement {
         { label: UnitPrice, fieldName: 'UnitPrice', type: 'currency' },
         { label: TotalPrice, fieldName: 'TotalPrice', type: 'currency' },
         { label: Quantity, fieldName: 'Quantity', type: 'number', cellAttributes: { class: { fieldName: 'quantityColor' } } },
-        { label: QuantityInStock, fieldName: 'QuantityInStock__c', type: 'number', cellAttributes: { class: { fieldName: 'stockColor' } } },
+        { label: QuantityInStock, fieldName: 'QuantityInStock__c', type: 'number', editable: true, cellAttributes: { class: { fieldName: 'stockColor' } } },
         {
             label: DeleteLabel,
             type: 'button-icon',
@@ -154,9 +154,9 @@ export default class opportunityProducts extends LightningElement {
 
             if (this.hasQuantityIssues) {
                 this.showToast(
-                    'Attention',
+                    'Warning',
                     `${this.label.quantityErrorMessage}\n${this.label.contactAdminMessage}`,
-                    'warning'
+                    
                 );
             }
 
@@ -179,7 +179,7 @@ export default class opportunityProducts extends LightningElement {
         this.isLoading = true;
         try {
             await deleteOpportunityLineItem({ oliId: productlineID });
-            this.showToast('Succès', 'Ligne supprimée avec succès', 'success');
+            this.showToast('Success', 'Row deleted successfully', 'success');
             await refreshApex(this.wiredProductsResult);
             await this.handleRecalculateStock();
         } catch (error) {
@@ -216,7 +216,7 @@ export default class opportunityProducts extends LightningElement {
     async handleRecalculateStock() {
         try {
             await refreshApex(this.wiredProductsResult);
-            this.showToast('Succès', 'Stock recalculé avec succès', 'success');
+            this.showToast('Success', 'Stock recalculated successfully');
         } catch (error) {
             this.showToast('Erreur', this.label.opportunityUpdateError, 'error');
             console.error(error);
